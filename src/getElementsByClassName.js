@@ -4,7 +4,16 @@
 // };
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className
-) {
-  // your code here
+var getElementsByClassName = function(className) {
+  var elements = document.getElementsByTagName("*");
+  var elementList = [];
+  var currentElement;
+
+    for (var i = 0; i < elements.length; i++){
+    currentElement = elements[i];
+    if (currentElement.className.search(className) !== -1){
+      elementList.push(currentElement);
+    }
+  }
+  return elementList;
 };

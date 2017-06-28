@@ -14,7 +14,23 @@ describe('getElementsByClassName', function() {
     $('body').addClass('targetClassName');
     htmlStrings.forEach(function(htmlString) {
       var $rootElement = $(htmlString);
-      $('body').append($rootElement);
+      $('body').append($rootElement); 
+
+      var getElementsByClassName = function(className) {
+          var elements = document.getElementsByTagName("*");
+          var elementList = [];
+          var currentElement;
+
+          for (var i = 0; i < elements.length; i++){
+            currentElement = elements[i];
+
+            if (currentElement.className.search(className) !== -1){
+              elementList.push(currentElement);
+            }
+          }
+          return elementList;
+      };
+      
 
       var result = getElementsByClassName('targetClassName');
       var expectedNodeList = document.getElementsByClassName('targetClassName');
