@@ -16,21 +16,20 @@ describe('getElementsByClassName', function() {
       var $rootElement = $(htmlString);
       $('body').append($rootElement); 
 
-      var getElementsByClassName = function(className, currentElement) {
+      var getElementsByClassName = function(className) {
+          var elements = document.getElementsByTagName("*");
           var elementList = [];
-          currentElement = currentElement || document.body;
+          var currentElement;
 
-          var parts = currentElement.className.split(' ');
-          if (parts.indexOf(className) !== -1){
-            elementList.push(currentElement);
-          };
+          for (var i = 0; i < elements.length; i++){
+            currentElement = elements[i];
 
-          for (var i = 0; i < currentElement.children.length; i++){
-            var results = getElementsByClassName(className, currentElement.children[i]);
-            elementList = elementList.concat(results);
+            if (currentElement.className.search(className) !== -1){
+              elementList.push(currentElement);
+            }
           }
           return elementList;
-        };
+      };
       
 
       var result = getElementsByClassName('targetClassName');

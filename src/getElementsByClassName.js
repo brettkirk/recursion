@@ -4,16 +4,18 @@
 // };
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className) {
-  var elements = document.getElementsByTagName("*");
+var getElementsByClassName = function(className, currentElement) {
   var elementList = [];
-  var currentElement;
+  currentElement = currentElement || document.body;
 
-    for (var i = 0; i < elements.length; i++){
-    currentElement = elements[i];
-    if (currentElement.className.search(className) !== -1){
-      elementList.push(currentElement);
-    }
+  var parts = currentElement.className.split(' ');
+  if (parts.indexOf(className) !== -1){
+    elementList.push(currentElement);
+  };
+
+  for (var i = 0; i < currentElement.children.length; i++){
+    var results = getElementsByClassName(className, currentElement.children[i]);
+    elementList = elementList.concat(results);
   }
   return elementList;
 };
